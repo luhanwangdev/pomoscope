@@ -1,6 +1,6 @@
 {
   "extName": { "message": "Promoscope" },
-  "extDescription": { "message": "番茄鐘 + 自動網站時間追蹤" },
+  "extDescription": { "message": "番茄鐘結合自動網站追蹤。每次專注結束後，立即看到時間花在哪些網站——以域名分類，搭配視覺化圖表一目瞭然。所有資料僅儲存在你的裝置上。" },
   "startBtn": { "message": "開始" },
   "pauseBtn": { "message": "暫停" },
   "resetBtn": { "message": "重置" },

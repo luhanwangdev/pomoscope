@@ -1,6 +1,6 @@
 {
   "extName": { "message": "Promoscope" },
-  "extDescription": { "message": "Pomodoro timer with automatic website tracking" },
+  "extDescription": { "message": "Pomodoro timer with automatic website tracking. See exactly where your time went after each session — broken down by domain with a visual chart. All data stays on your device." },
   "startBtn": { "message": "Start" },
   "pauseBtn": { "message": "Pause" },
   "resetBtn": { "message": "Reset" },
