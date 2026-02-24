@@ -36,7 +36,11 @@
     <section class="report-section">
       <h2 class="section-title" data-i18n="sessionReport">Session Report</h2>
       <div id="report-content" class="report-content">
-        <p class="empty-state" data-i18n="noSessions">No sessions yet. Start your first Pomodoro!</p>
+        <p id="report-empty" class="empty-state" data-i18n="noSessions">No sessions yet. Start your first Pomodoro!</p>
+        <div id="report-chart-wrapper" class="chart-wrapper" hidden>
+          <canvas id="sessionChart"></canvas>
+        </div>
+        <div id="report-top-sites" class="top-sites-list"></div>
       </div>
     </section>
 
@@ -53,6 +57,7 @@
           <span class="stat-label" data-i18n="totalWork">Total Work</span>
         </div>
       </div>
+      <div id="today-top-sites" class="today-top-sites"></div>
     </section>
 
     <!-- Footer -->
@@ -61,6 +66,8 @@
     </footer>
   </div>
 
+  <script src="../utils/storage.js"></script>
+  <script src="../libs/chart.min.js"></script>
   <script src="popup.js"></script>
 </body>
 </html>

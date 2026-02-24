@@ -279,6 +279,50 @@ body {
   background: rgba(0, 0, 0, 0.03);
 }
 
+/* ===== Chart Wrapper ===== */
+.chart-wrapper {
+  width: 100%;
+  max-width: 200px;
+  margin: 0 auto 12px;
+}
+
+.chart-wrapper canvas {
+  width: 100% !important;
+  height: auto !important;
+}
+
+/* ===== Top Sites (report) ===== */
+.top-sites-list {
+  width: 100%;
+}
+
+.site-color-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.site-time {
+  font-size: 12px;
+  color: #6B5A4E;
+  min-width: 36px;
+  text-align: right;
+}
+
+/* ===== Today Top Sites ===== */
+.today-top-sites {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 12px;
+}
+
+/* ===== Report content layout fix ===== */
+.report-content {
+  flex-direction: column;
+}
+
 /* ===== Utility ===== */
 [hidden] {
   display: none !important;
