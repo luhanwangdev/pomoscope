@@ -33,28 +33,33 @@ async function startTimer() {
   const settings = await Storage.getSettings();
 
   let duration;
+  let status;
+
   if (timer.status === 'idle') {
-    // Fresh start — determine duration based on what phase we're in
+    // Fresh start — begin work session
     duration = settings.workDuration;
-  } else {
-    // Resuming from whatever timeLeft is stored
+    status = 'working';
+  } else if (timer.endTime === null) {
+    // Resuming from pause — keep the same status (could be working, break, or longBreak)
     duration = timer.timeLeft;
+    status = timer.status;
+  } else {
+    // Already running — ignore
+    return;
   }
 
   const endTime = Date.now() + duration * 1000;
 
   await Storage.setTimer({
-    status: 'working',
+    status,
     timeLeft: duration,
     endTime
   });
 
-  // Create repeating alarm (min interval = 1 minute in MV3)
   chrome.alarms.create(ALARM_NAME, { periodInMinutes: 1 });
+  updateBadge(Math.ceil(duration / 60), status);
 
-  updateBadge(Math.ceil(duration / 60), 'working');
-
-  // Initialize tracking session if starting fresh work
+  // Initialize tracking session only when starting fresh work
   if (timer.status === 'idle') {
     await initTrackingSession();
   }
@@ -65,6 +70,9 @@ async function startTimer() {
  */
 async function startBreak() {
   const timer = await Storage.getTimer();
+  // Guard: if already on a break, don't restart it
+  if (timer.status === 'break' || timer.status === 'longBreak') return;
+
   const settings = await Storage.getSettings();
 
   const isLongBreak = timer.completedPomodoros > 0 &&
@@ -155,7 +163,9 @@ async function onTimerComplete() {
     if (sessionData) {
       try {
         const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-        if (tab && tab.id && !tab.url.startsWith('chrome://') && !tab.url.startsWith('chrome-extension://')) {
+        if (tab && tab.id && tab.url &&
+            !tab.url.startsWith('chrome://') && !tab.url.startsWith('chrome-extension://') &&
+            !tab.url.startsWith('edge://') && !tab.url.startsWith('about:')) {
           await chrome.scripting.insertCSS({ target: { tabId: tab.id }, files: ['content/overlay.css'] });
           await chrome.scripting.executeScript({ target: { tabId: tab.id }, files: ['content/overlay.js'] });
           await chrome.tabs.sendMessage(tab.id, { action: 'showOverlay', session: sessionData });
@@ -297,7 +307,8 @@ async function finalizeTrackingSession() {
  */
 function extractDomain(url) {
   try {
-    if (!url || url.startsWith('chrome://') || url.startsWith('chrome-extension://')) {
+    if (!url || url.startsWith('chrome://') || url.startsWith('chrome-extension://') ||
+        url.startsWith('edge://') || url.startsWith('about:')) {
       return null;
     }
     return new URL(url).hostname;
