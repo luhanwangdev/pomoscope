@@ -10,7 +10,7 @@
  */
 
 /* global Storage, chrome */
-importScripts('utils/storage.js');
+importScripts('/utils/storage.js');
 
 const ALARM_NAME = 'pomodoroTick';
 
@@ -56,7 +56,7 @@ async function startTimer() {
     endTime
   });
 
-  chrome.alarms.create(ALARM_NAME, { periodInMinutes: 1 });
+  chrome.alarms.create(ALARM_NAME, { when: endTime, periodInMinutes: 1 });
   updateBadge(Math.ceil(duration / 60), status);
 
   // Initialize tracking session only when starting fresh work
@@ -88,7 +88,7 @@ async function startBreak() {
     endTime
   });
 
-  chrome.alarms.create(ALARM_NAME, { periodInMinutes: 1 });
+  chrome.alarms.create(ALARM_NAME, { when: endTime, periodInMinutes: 1 });
   updateBadge(Math.ceil(duration / 60), breakType);
 }
 
@@ -416,6 +416,15 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
     pause: pauseTimer,
     reset: resetTimer,
     startBreak: startBreak,
+    checkComplete: async () => {
+      const timer = await Storage.getTimer();
+      if (timer.endTime) {
+        const remaining = Math.round((timer.endTime - Date.now()) / 1000);
+        if (remaining <= 0) {
+          await onTimerComplete();
+        }
+      }
+    },
     getState: async () => {
       const timer = await Storage.getTimer();
       const session = await Storage.getCurrentSession();
@@ -447,7 +456,7 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
     await onTimerComplete();
   } else {
     // Timer still running — re-create alarm and update badge
-    chrome.alarms.create(ALARM_NAME, { periodInMinutes: 1 });
+    chrome.alarms.create(ALARM_NAME, { when: endTime, periodInMinutes: 1 });
     updateBadge(Math.ceil(remaining / 60), timer.status);
   }
 })();

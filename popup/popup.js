@@ -131,10 +131,18 @@ async function tick() {
 
     if (remaining <= 0) {
       stopTick();
+      // Alarm may not have fired yet — tell SW to handle completion now
+      try {
+        await chrome.runtime.sendMessage({ action: 'checkComplete' });
+      } catch { /* SW may already be handling it */ }
+      // Wait for SW to transition state, then refresh once
       setTimeout(async () => {
         await refreshAll();
-        startTick();
-      }, 500);
+        const newTimer = await Storage.getTimer();
+        if (newTimer.endTime && newTimer.status !== 'idle') {
+          startTick();
+        }
+      }, 800);
     }
   } else {
     updateTimerDisplay(timer.timeLeft);
@@ -324,17 +332,29 @@ function formatDuration(totalSeconds) {
 // ── Controls ──────────────────────────────────────────────────────────
 
 function initControls() {
-  document.getElementById('btn-start').addEventListener('click', () => {
-    chrome.runtime.sendMessage({ action: 'start' });
-    startTick();
+  document.getElementById('btn-start').addEventListener('click', async () => {
+    try {
+      await chrome.runtime.sendMessage({ action: 'start' });
+      startTick();
+    } catch (err) {
+      console.error('Failed to send start message:', err);
+    }
   });
 
-  document.getElementById('btn-pause').addEventListener('click', () => {
-    chrome.runtime.sendMessage({ action: 'pause' });
+  document.getElementById('btn-pause').addEventListener('click', async () => {
+    try {
+      await chrome.runtime.sendMessage({ action: 'pause' });
+    } catch (err) {
+      console.error('Failed to send pause message:', err);
+    }
   });
 
   document.getElementById('btn-reset').addEventListener('click', async () => {
-    chrome.runtime.sendMessage({ action: 'reset' });
+    try {
+      await chrome.runtime.sendMessage({ action: 'reset' });
+    } catch (err) {
+      console.error('Failed to send reset message:', err);
+    }
     stopTick();
     const settings = await Storage.getSettings();
     updateTimerDisplay(settings.workDuration);
