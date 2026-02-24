@@ -1,0 +1,18 @@
+{
+  "extName": { "message": "Promoscope" },
+  "extDescription": { "message": "番茄鐘 + 自動網站時間追蹤" },
+  "startBtn": { "message": "開始" },
+  "pauseBtn": { "message": "暫停" },
+  "resetBtn": { "message": "重置" },
+  "workLabel": { "message": "工作" },
+  "breakLabel": { "message": "休息" },
+  "longBreakLabel": { "message": "長休息" },
+  "sessionReport": { "message": "本輪報告" },
+  "todayStats": { "message": "今日" },
+  "settings": { "message": "設定" },
+  "otherApps": { "message": "其他應用" },
+  "completed": { "message": "已完成" },
+  "rounds": { "message": "輪" },
+  "totalWork": { "message": "總工作時間" },
+  "noSessions": { "message": "尚無紀錄，開始你的第一個番茄鐘吧！" }
+}

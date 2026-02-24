@@ -1,0 +1,18 @@
+{
+  "extName": { "message": "Promoscope" },
+  "extDescription": { "message": "Pomodoro timer with automatic website tracking" },
+  "startBtn": { "message": "Start" },
+  "pauseBtn": { "message": "Pause" },
+  "resetBtn": { "message": "Reset" },
+  "workLabel": { "message": "Work" },
+  "breakLabel": { "message": "Break" },
+  "longBreakLabel": { "message": "Long Break" },
+  "sessionReport": { "message": "Session Report" },
+  "todayStats": { "message": "Today" },
+  "settings": { "message": "Settings" },
+  "otherApps": { "message": "Other Apps" },
+  "completed": { "message": "completed" },
+  "rounds": { "message": "rounds" },
+  "totalWork": { "message": "Total Work" },
+  "noSessions": { "message": "No sessions yet. Start your first Pomodoro!" }
+}
