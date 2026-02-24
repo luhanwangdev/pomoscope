@@ -1,0 +1,173 @@
+/* ===== Promoscope Overlay — Full-screen session summary ===== */
+
+/* Fade-in keyframes */
+@keyframes promoscope-fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes promoscope-slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Backdrop */
+.promoscope-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 2147483647;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: promoscope-fadeIn 0.3s ease both;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Card */
+.promoscope-card {
+  background: #FFFFFF;
+  max-width: 360px;
+  width: 90%;
+  border-radius: 20px;
+  padding: 32px 28px 28px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  animation: promoscope-slideUp 0.4s 0.1s ease both;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+/* Heading */
+.promoscope-heading {
+  font-size: 22px;
+  font-weight: 700;
+  color: #3D3D3D;
+  text-align: center;
+  letter-spacing: 0.3px;
+  margin: 0;
+  padding: 0;
+  line-height: 1.3;
+}
+
+/* Subheading — session duration */
+.promoscope-subheading {
+  font-size: 13px;
+  font-weight: 600;
+  color: #B3A49A;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: -12px 0 0 0;
+  padding: 0;
+  line-height: 1.4;
+}
+
+/* Site list container */
+.promoscope-sites {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+}
+
+/* Individual site row */
+.promoscope-site-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+}
+
+.promoscope-site-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: #3D3D3D;
+  min-width: 100px;
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin: 0;
+  padding: 0;
+  line-height: 1.4;
+}
+
+.promoscope-bar-track {
+  flex: 1;
+  height: 8px;
+  background: #F0E8E0;
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+
+.promoscope-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #E8836B, #F5C1A8);
+  transition: width 0.6s ease;
+  margin: 0;
+  padding: 0;
+}
+
+.promoscope-site-percent {
+  font-size: 11px;
+  font-weight: 600;
+  color: #A0877A;
+  min-width: 36px;
+  text-align: right;
+  margin: 0;
+  padding: 0;
+  line-height: 1.4;
+}
+
+/* Start Break button */
+.promoscope-btn {
+  border: none;
+  cursor: pointer;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 24px;
+  padding: 12px 36px;
+  background: linear-gradient(135deg, #E8836B 0%, #D4725A 100%);
+  color: #FFFFFF;
+  box-shadow: 0 3px 10px rgba(212, 114, 90, 0.35);
+  letter-spacing: 0.3px;
+  transition: all 0.2s ease;
+  margin: 4px 0 0 0;
+  line-height: 1.4;
+}
+
+.promoscope-btn:hover {
+  box-shadow: 0 4px 14px rgba(212, 114, 90, 0.5);
+}
+
+.promoscope-btn:active {
+  transform: scale(0.96);
+}

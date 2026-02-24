@@ -132,6 +132,9 @@ async function onTimerComplete() {
   chrome.alarms.clear(ALARM_NAME);
 
   if (timer.status === 'working') {
+    // Capture session data BEFORE finalizing (which clears it)
+    const sessionData = await captureSessionData();
+
     // Work session ended — save session, increment pomodoros
     await finalizeTrackingSession();
 
@@ -147,6 +150,20 @@ async function onTimerComplete() {
       chrome.i18n.getMessage('workLabel'),
       chrome.i18n.getMessage('completed') + '!'
     );
+
+    // Inject overlay into active tab
+    if (sessionData) {
+      try {
+        const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+        if (tab && tab.id && !tab.url.startsWith('chrome://') && !tab.url.startsWith('chrome-extension://')) {
+          await chrome.scripting.insertCSS({ target: { tabId: tab.id }, files: ['content/overlay.css'] });
+          await chrome.scripting.executeScript({ target: { tabId: tab.id }, files: ['content/overlay.js'] });
+          await chrome.tabs.sendMessage(tab.id, { action: 'showOverlay', session: sessionData });
+        }
+      } catch (e) {
+        // Some tabs (chrome://, new tab, etc.) can't be injected — ignore
+      }
+    }
 
     // Auto-start break
     await startBreak();
@@ -216,6 +233,35 @@ async function creditTime(newDomain) {
   session.lastDomain = newDomain;
 
   await Storage.setCurrentSession(session);
+}
+
+/**
+ * Capture a snapshot of the current session data (with final time credited)
+ * before it gets cleared by finalizeTrackingSession.
+ * @returns {Promise<Object|null>}
+ */
+async function captureSessionData() {
+  const session = await Storage.getCurrentSession();
+  if (!session) return null;
+
+  // Clone sites to avoid mutation
+  const sites = { ...session.sites };
+
+  // Credit remaining time to the last domain (same logic as finalize)
+  const now = Math.floor(Date.now() / 1000);
+  const elapsed = now - session.lastTrackedTime;
+  if (elapsed > 0 && session.lastDomain) {
+    sites[session.lastDomain] = (sites[session.lastDomain] || 0) + elapsed;
+  }
+
+  const totalDuration = Object.values(sites).reduce((sum, s) => sum + s, 0);
+
+  return {
+    startTime: session.startTime,
+    endTime: Date.now(),
+    duration: totalDuration,
+    sites
+  };
 }
 
 /**

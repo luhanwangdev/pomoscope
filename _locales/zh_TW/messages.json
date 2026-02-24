@@ -14,5 +14,12 @@
   "completed": { "message": "已完成" },
   "rounds": { "message": "輪" },
   "totalWork": { "message": "總工作時間" },
-  "noSessions": { "message": "尚無紀錄，開始你的第一個番茄鐘吧！" }
+  "noSessions": { "message": "尚無紀錄，開始你的第一個番茄鐘吧！" },
+  "settingsTitle": { "message": "設定" },
+  "workDurationLabel": { "message": "工作時長（分鐘）" },
+  "breakDurationLabel": { "message": "休息時長（分鐘）" },
+  "longBreakDurationLabel": { "message": "長休息時長（分鐘）" },
+  "longBreakIntervalLabel": { "message": "長休息間隔（輪）" },
+  "soundEnabledLabel": { "message": "音效通知" },
+  "savedLabel": { "message": "已儲存" }
 }

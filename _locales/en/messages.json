@@ -14,5 +14,12 @@
   "completed": { "message": "completed" },
   "rounds": { "message": "rounds" },
   "totalWork": { "message": "Total Work" },
-  "noSessions": { "message": "No sessions yet. Start your first Pomodoro!" }
+  "noSessions": { "message": "No sessions yet. Start your first Pomodoro!" },
+  "settingsTitle": { "message": "Settings" },
+  "workDurationLabel": { "message": "Work Duration (minutes)" },
+  "breakDurationLabel": { "message": "Break Duration (minutes)" },
+  "longBreakDurationLabel": { "message": "Long Break Duration (minutes)" },
+  "longBreakIntervalLabel": { "message": "Long Break Every (rounds)" },
+  "soundEnabledLabel": { "message": "Sound Notifications" },
+  "savedLabel": { "message": "Saved" }
 }
