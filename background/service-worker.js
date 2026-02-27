@@ -159,20 +159,10 @@ async function onTimerComplete() {
       chrome.i18n.getMessage('completed') + '!'
     );
 
-    // Inject overlay into active tab
+    // Open report page with session data
     if (sessionData) {
-      try {
-        const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-        if (tab && tab.id && tab.url &&
-            !tab.url.startsWith('chrome://') && !tab.url.startsWith('chrome-extension://') &&
-            !tab.url.startsWith('edge://') && !tab.url.startsWith('about:')) {
-          await chrome.scripting.insertCSS({ target: { tabId: tab.id }, files: ['content/overlay.css'] });
-          await chrome.scripting.executeScript({ target: { tabId: tab.id }, files: ['content/overlay.js'] });
-          await chrome.tabs.sendMessage(tab.id, { action: 'showOverlay', session: sessionData });
-        }
-      } catch (e) {
-        // Some tabs (chrome://, new tab, etc.) can't be injected — ignore
-      }
+      await Storage.setLastSessionForReport(sessionData);
+      chrome.tabs.create({ url: chrome.runtime.getURL('report/report.html') });
     }
 
     // Auto-start break

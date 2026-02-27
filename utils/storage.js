@@ -216,6 +216,21 @@ const Storage = (() => {
     return dayEntry ? dayEntry.sessions : [];
   }
 
+  // ── Last Session for Report ──────────────────────────────────────────
+
+  async function setLastSessionForReport(session) {
+    return _set({ lastSessionForReport: session });
+  }
+
+  async function getLastSessionForReport() {
+    const { lastSessionForReport } = await _get('lastSessionForReport');
+    return lastSessionForReport ?? null;
+  }
+
+  async function clearLastSessionForReport() {
+    return _remove('lastSessionForReport');
+  }
+
   // ── Public API ────────────────────────────────────────────────────────
 
   return {
@@ -230,6 +245,9 @@ const Storage = (() => {
     getSettings,
     setSettings,
     getTodaySessions,
-    getTodayDateString
+    getTodayDateString,
+    setLastSessionForReport,
+    getLastSessionForReport,
+    clearLastSessionForReport
   };
 })();

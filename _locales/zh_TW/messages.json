@@ -21,5 +21,8 @@
   "longBreakDurationLabel": { "message": "長休息時長（分鐘）" },
   "longBreakIntervalLabel": { "message": "長休息間隔（輪）" },
   "soundEnabledLabel": { "message": "音效通知" },
-  "savedLabel": { "message": "已儲存" }
+  "savedLabel": { "message": "已儲存" },
+  "sessionComplete": { "message": "專注完成！" },
+  "focused": { "message": "專注" },
+  "closeBtn": { "message": "關閉" }
 }

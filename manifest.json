@@ -8,12 +8,7 @@
     "alarms",
     "tabs",
     "storage",
-    "notifications",
-    "scripting",
-    "activeTab"
-  ],
-  "host_permissions": [
-    "<all_urls>"
+    "notifications"
   ],
   "action": {
     "default_popup": "popup/popup.html",

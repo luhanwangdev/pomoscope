@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="report.css">
+  <title>Promoscope — Session Report</title>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1 class="heading" data-i18n="sessionComplete">Session Complete!</h1>
+      <p class="subheading" id="duration-label"></p>
+
+      <div class="chart-wrapper" id="chart-wrapper" hidden>
+        <canvas id="reportChart"></canvas>
+      </div>
+
+      <div class="sites-list" id="sites-list"></div>
+
+      <button class="btn-close" id="btn-close" data-i18n="closeBtn">Close</button>
+    </div>
+  </div>
+
+  <script src="../utils/storage.js"></script>
+  <script src="../libs/chart.min.js"></script>
+  <script src="report.js"></script>
+</body>
+</html>

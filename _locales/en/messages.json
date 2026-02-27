@@ -1,6 +1,6 @@
 {
   "extName": { "message": "Promoscope" },
-  "extDescription": { "message": "Pomodoro timer with automatic website tracking. See exactly where your time went after each session — broken down by domain with a visual chart. All data stays on your device." },
+  "extDescription": { "message": "Pomodoro timer with automatic website tracking. See where your time went each session with a visual chart. All data stays local." },
   "startBtn": { "message": "Start" },
   "pauseBtn": { "message": "Pause" },
   "resetBtn": { "message": "Reset" },
@@ -21,5 +21,8 @@
   "longBreakDurationLabel": { "message": "Long Break Duration (minutes)" },
   "longBreakIntervalLabel": { "message": "Long Break Every (rounds)" },
   "soundEnabledLabel": { "message": "Sound Notifications" },
-  "savedLabel": { "message": "Saved" }
+  "savedLabel": { "message": "Saved" },
+  "sessionComplete": { "message": "Session Complete!" },
+  "focused": { "message": "focused" },
+  "closeBtn": { "message": "Close" }
 }
