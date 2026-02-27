@@ -33,8 +33,8 @@ manifest.json                  # Extension config, permissions, entry points
 │   └── service-worker.js      # Timer core (chrome.alarms), tab tracking, badge updates
 ├── popup/
 │   ├── popup.html/css/js      # Timer UI, start/pause/reset, session reports
-├── content/
-│   └── overlay.js             # Phase 2: injected full-screen overlay on timer end
+├── report/
+│   ├── report.html/css/js     # Full-page session report (opened on timer end)
 ├── assets/icons/              # 16, 48, 128px extension icons
 └── utils/
     └── storage.js             # chrome.storage.local helper functions
@@ -52,7 +52,7 @@ manifest.json                  # Extension config, permissions, entry points
 |-----|---------|
 | `chrome.alarms` | Persistent timer countdown |
 | `chrome.tabs.onActivated` / `onUpdated` | Detect tab switches and URL changes |
-| `chrome.tabs.query` | Get current active tab URL |
+| `chrome.tabs.query` / `create` | Get current active tab URL; open report page |
 | `chrome.storage.local` | All data persistence |
 | `chrome.notifications` | Timer completion alerts |
 | `chrome.action.setBadgeText` | Show remaining minutes on icon |
